@@ -20,6 +20,12 @@ def post_detail(request, slug):
 
   ``post``
       An instance of :model:`blog.Post`.
+  ``comments``
+      All approved comments related to the post
+  ``comment_count``
+      A count of approved comments in the related post.
+  ``comment_form``
+      An instance of :form:`blog.CommentForm`.
 
   **Template:**
 
@@ -33,7 +39,6 @@ def post_detail(request, slug):
   comment_form = CommentForm()
 
   if request.method == "POST":
-    print('Received POST request...')
     comment_form = CommentForm(data=request.POST)
     if comment_form.is_valid():
       comment = comment_form.save(commit=False)
@@ -44,8 +49,6 @@ def post_detail(request, slug):
         request, messages.SUCCESS,
         'Comment submitted and awaiting approval'
       )
-  
-  print('Rendering template...')
 
   return render(
     request,
@@ -60,7 +63,16 @@ def post_detail(request, slug):
 
 def comment_edit(request, slug, comment_id):
   """
-  view to edit comments
+  View to edit comments
+
+  **Context**
+
+  ``post``
+    An instance of :model:`blog.Post`
+  ``comment``
+    A single comment related to the post.
+  ``comment_form``
+    An instance of :form:`blog.CommentForm`.
   """
   if request.method == "POST":
     queryset = Post.objects.filter(status=1)
@@ -75,7 +87,7 @@ def comment_edit(request, slug, comment_id):
       comment.save()
       messages.add_message(
         request, messages.SUCCESS,
-        'Comment Updatede!'
+        'Comment Updated!'
       )
     else:
       messages.add_message(
@@ -87,7 +99,14 @@ def comment_edit(request, slug, comment_id):
 
 def comment_delete(request, slug, comment_id):
   """
-  view to delete comments
+  View to delete comments
+
+  **Context**
+
+  ``post``
+    An instance :model:`blog.Post`
+  ``comment``
+    A single comment related to the post.
   """
   queryset = Post.objects.filter(status=1)
   post = get_object_or_404(queryset, slug=slug)
