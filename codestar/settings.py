@@ -33,6 +33,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
   '8000-tariq845-djangoblogproj-t3oxomf3clm.ws-eu108.gitpod.io',
   '.herokuapp.com',
+  '8000-joelezra-djangoblogproj-a1tay8iadjp.ws-eu108.gitpod.io',
   ]
 
 
@@ -116,6 +117,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://*.codeanyapp.com",
     "https://django-blog-t-a85280ac5d2a.herokuapp.com/",
     "https://8000-tariq845-djangoblogproj-t3oxomf3clm.ws-eu108.gitpod.io",
+    'https://8000-joelezra-djangoblogproj-a1tay8iadjp.ws-eu108.gitpod.io',
 ]
 
 
